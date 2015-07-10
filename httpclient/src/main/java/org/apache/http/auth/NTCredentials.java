@@ -44,6 +44,7 @@ import org.apache.http.util.LangUtils;
 public class NTCredentials implements Credentials, Serializable {
 
     private static final long serialVersionUID = -7385699315228907265L;
+    private static final Locale LOCALE_ROOT = new Locale("","");
 
     /** The user principal  */
     private final NTUserPrincipal principal;
@@ -75,7 +76,7 @@ public class NTCredentials implements Credentials, Serializable {
         final int atSlash = username.indexOf('/');
         if (atSlash >= 0) {
             this.principal = new NTUserPrincipal(
-                    username.substring(0, atSlash).toUpperCase(Locale.ROOT),
+                    username.substring(0, atSlash).toUpperCase(LOCALE_ROOT),
                     username.substring(atSlash + 1));
         } else {
             this.principal = new NTUserPrincipal(
@@ -104,7 +105,7 @@ public class NTCredentials implements Credentials, Serializable {
         this.principal = new NTUserPrincipal(domain, userName);
         this.password = password;
         if (workstation != null) {
-            this.workstation = workstation.toUpperCase(Locale.ROOT);
+            this.workstation = workstation.toUpperCase(LOCALE_ROOT);
         } else {
             this.workstation = null;
         }

@@ -51,6 +51,8 @@ public class AuthScope {
      */
     public static final String ANY_HOST = null;
 
+    public static final Locale LOCALE_ROOT = new Locale("","");
+
     /**
      * The {@code -1} value represents any port.
      */
@@ -106,10 +108,10 @@ public class AuthScope {
             final int port,
             final String realm,
             final String schemeName) {
-        this.host = host == null ? ANY_HOST: host.toLowerCase(Locale.ROOT);
+        this.host = host == null ? ANY_HOST: host.toLowerCase(LOCALE_ROOT);
         this.port = port < 0 ? ANY_PORT : port;
         this.realm = realm == null ? ANY_REALM : realm;
-        this.scheme = schemeName == null ? ANY_SCHEME : schemeName.toUpperCase(Locale.ROOT);
+        this.scheme = schemeName == null ? ANY_SCHEME : schemeName.toUpperCase(LOCALE_ROOT);
         this.origin = null;
     }
 
@@ -129,10 +131,10 @@ public class AuthScope {
             final String realm,
             final String schemeName) {
         Args.notNull(origin, "Host");
-        this.host = origin.getHostName().toLowerCase(Locale.ROOT);
+        this.host = origin.getHostName().toLowerCase(LOCALE_ROOT);
         this.port = origin.getPort() < 0 ? ANY_PORT : origin.getPort();
         this.realm = realm == null ? ANY_REALM : realm;
-        this.scheme = schemeName == null ? ANY_SCHEME : schemeName.toUpperCase(Locale.ROOT);
+        this.scheme = schemeName == null ? ANY_SCHEME : schemeName.toUpperCase(LOCALE_ROOT);
         this.origin = origin;
     }
 
@@ -292,7 +294,7 @@ public class AuthScope {
     public String toString() {
         final StringBuilder buffer = new StringBuilder();
         if (this.scheme != null) {
-            buffer.append(this.scheme.toUpperCase(Locale.ROOT));
+            buffer.append(this.scheme.toUpperCase(LOCALE_ROOT));
             buffer.append(' ');
         }
         if (this.realm != null) {

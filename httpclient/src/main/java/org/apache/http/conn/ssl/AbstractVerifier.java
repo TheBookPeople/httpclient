@@ -58,6 +58,7 @@ import org.apache.http.util.Args;
 public abstract class AbstractVerifier implements X509HostnameVerifier {
 
     private final Log log = LogFactory.getLog(getClass());
+    public static final Locale LOCALE_ROOT = new Locale("","");
 
     final static String[] BAD_COUNTRY_2LDS =
             { "ac", "co", "com", "ed", "edu", "go", "gouv", "gov", "info",
@@ -151,7 +152,7 @@ public abstract class AbstractVerifier implements X509HostnameVerifier {
         final List<String> subjectAltList = subjectAlts != null && subjectAlts.length > 0 ? Arrays.asList(subjectAlts) : null;
 
         final String normalizedHost = InetAddressUtils.isIPv6Address(host) ?
-                DefaultHostnameVerifier.normaliseAddress(host.toLowerCase(Locale.ROOT)) : host;
+                DefaultHostnameVerifier.normaliseAddress(host.toLowerCase(LOCALE_ROOT)) : host;
 
         if (subjectAltList != null) {
             for (String subjectAlt: subjectAltList) {
@@ -181,8 +182,8 @@ public abstract class AbstractVerifier implements X509HostnameVerifier {
         if (host == null) {
             return false;
         }
-        final String normalizedHost = host.toLowerCase(Locale.ROOT);
-        final String normalizedIdentity = identity.toLowerCase(Locale.ROOT);
+        final String normalizedHost = host.toLowerCase(LOCALE_ROOT);
+        final String normalizedIdentity = identity.toLowerCase(LOCALE_ROOT);
         // The CN better have at least two dots if it wants wildcard
         // action.  It also can't be [*.co.uk] or [*.co.jp] or
         // [*.org.uk], etc...

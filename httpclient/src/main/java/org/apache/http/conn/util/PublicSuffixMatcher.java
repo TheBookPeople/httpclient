@@ -26,7 +26,7 @@
  */
 package org.apache.http.conn.util;
 
-import java.net.IDN;
+import gnu.inet.encoding.IDNA;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
@@ -146,15 +146,15 @@ public final class PublicSuffixMatcher {
             return null;
         }
         String domainName = null;
-        String segment = domain.toLowerCase(Locale.ROOT);
+        String segment = domain.toLowerCase(new Locale("",""));
         while (segment != null) {
 
             // An exception rule takes priority over any other matching rule.
-            if (hasException(IDN.toUnicode(segment), expectedType)) {
+            if (hasException(IDNA.toUnicode(segment), expectedType)) {
                 return segment;
             }
 
-            if (hasRule(IDN.toUnicode(segment), expectedType)) {
+            if (hasRule(IDNA.toUnicode(segment), expectedType)) {
                 break;
             }
 
@@ -162,7 +162,7 @@ public final class PublicSuffixMatcher {
             final String nextSegment = nextdot != -1 ? segment.substring(nextdot + 1) : null;
 
             if (nextSegment != null) {
-                if (hasRule("*." + IDN.toUnicode(nextSegment), expectedType)) {
+                if (hasRule("*." + IDNA.toUnicode(nextSegment), expectedType)) {
                     break;
                 }
             }

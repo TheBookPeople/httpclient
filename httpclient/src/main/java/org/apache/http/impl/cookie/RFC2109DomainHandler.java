@@ -56,7 +56,7 @@ public class RFC2109DomainHandler implements CommonCookieAttributeHandler {
         if (value == null) {
             throw new MalformedCookieException("Missing value for domain attribute");
         }
-        if (value.trim().isEmpty()) {
+        if (value.trim().length() == 0) {
             throw new MalformedCookieException("Blank value for domain attribute");
         }
         cookie.setDomain(value);
@@ -93,7 +93,7 @@ public class RFC2109DomainHandler implements CommonCookieAttributeHandler {
                     + domain
                     + "\" violates RFC 2109: domain must contain an embedded dot");
             }
-            host = host.toLowerCase(Locale.ROOT);
+            host = host.toLowerCase(new Locale("",""));
             if (!host.endsWith(domain)) {
                 throw new CookieRestrictionViolationException(
                     "Illegal domain attribute \"" + domain

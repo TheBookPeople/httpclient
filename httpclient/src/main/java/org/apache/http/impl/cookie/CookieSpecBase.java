@@ -91,7 +91,7 @@ public abstract class CookieSpecBase extends AbstractCookieSpec {
         for (final HeaderElement headerelement : elems) {
             final String name = headerelement.getName();
             final String value = headerelement.getValue();
-            if (name == null || name.isEmpty()) {
+            if (name == null || name.length()==0) {
                 throw new MalformedCookieException("Cookie name may not be empty");
             }
 
@@ -103,7 +103,7 @@ public abstract class CookieSpecBase extends AbstractCookieSpec {
             final NameValuePair[] attribs = headerelement.getParameters();
             for (int j = attribs.length - 1; j >= 0; j--) {
                 final NameValuePair attrib = attribs[j];
-                final String s = attrib.getName().toLowerCase(Locale.ROOT);
+                final String s = attrib.getName().toLowerCase(new Locale("",""));
 
                 cookie.setAttribute(s, attrib.getValue());
 

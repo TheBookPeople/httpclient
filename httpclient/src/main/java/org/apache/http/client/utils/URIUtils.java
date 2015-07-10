@@ -47,6 +47,8 @@ import org.apache.http.util.TextUtils;
 @Immutable
 public class URIUtils {
 
+    public static final Locale LOCALE_ROOT = new Locale("","");
+
      /**
          * Constructs a {@link URI} using all the parameters. This should be
          * used instead of
@@ -190,7 +192,7 @@ public class URIUtils {
             uribuilder.setPath("/");
         }
         if (uribuilder.getHost() != null) {
-            uribuilder.setHost(uribuilder.getHost().toLowerCase(Locale.ROOT));
+            uribuilder.setHost(uribuilder.getHost().toLowerCase(LOCALE_ROOT));
         }
         uribuilder.setFragment(null);
         return uribuilder.build();
@@ -259,7 +261,7 @@ public class URIUtils {
             baseUri = i > -1 ? baseUri.substring(0, i) : baseUri;
             return URI.create(baseUri + s);
         }
-        final boolean emptyReference = s.isEmpty();
+        final boolean emptyReference = s.length()==0;
         URI resolved;
         if (emptyReference) {
             resolved = baseURI.resolve(URI.create("#"));
@@ -294,7 +296,7 @@ public class URIUtils {
             final String[] inputSegments = path.split("/");
             final Stack<String> outputSegments = new Stack<String>();
             for (final String inputSegment : inputSegments) {
-                if ((inputSegment.isEmpty()) || (".".equals(inputSegment))) {
+                if ((inputSegment.length()==0) || (".".equals(inputSegment))) {
                     // Do nothing
                 } else if ("..".equals(inputSegment)) {
                     if (!outputSegments.isEmpty()) {
@@ -315,10 +317,10 @@ public class URIUtils {
             builder.setPath(outputBuffer.toString());
         }
         if (builder.getScheme() != null) {
-            builder.setScheme(builder.getScheme().toLowerCase(Locale.ROOT));
+            builder.setScheme(builder.getScheme().toLowerCase(LOCALE_ROOT));
         }
         if (builder.getHost() != null) {
-            builder.setHost(builder.getHost().toLowerCase(Locale.ROOT));
+            builder.setHost(builder.getHost().toLowerCase(LOCALE_ROOT));
         }
         return builder.build();
     }

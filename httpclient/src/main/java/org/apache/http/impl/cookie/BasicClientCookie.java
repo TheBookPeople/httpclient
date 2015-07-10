@@ -196,7 +196,7 @@ public class BasicClientCookie implements SetCookie, ClientCookie, Cloneable, Se
     @Override
     public void setDomain(final String domain) {
         if (domain != null) {
-            cookieDomain = domain.toLowerCase(Locale.ROOT);
+            cookieDomain = domain.toLowerCase(new Locale("",""));
         } else {
             cookieDomain = null;
         }

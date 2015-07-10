@@ -59,7 +59,7 @@ import org.apache.http.util.Args;
 @Immutable
 @Deprecated
 class AuthenticationStrategyAdaptor implements AuthenticationStrategy {
-
+    public static final Locale LOCALE_ROOT = new Locale("","");
     private final Log log = LogFactory.getLog(getClass());
 
     private final AuthenticationHandler handler;
@@ -111,7 +111,7 @@ class AuthenticationStrategyAdaptor implements AuthenticationStrategy {
             return options;
         }
         final String id = authScheme.getSchemeName();
-        final Header challenge = challenges.get(id.toLowerCase(Locale.ROOT));
+        final Header challenge = challenges.get(id.toLowerCase(LOCALE_ROOT));
         authScheme.processChallenge(challenge);
 
         final AuthScope authScope = new AuthScope(

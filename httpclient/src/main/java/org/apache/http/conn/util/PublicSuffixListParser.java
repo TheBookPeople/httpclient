@@ -62,7 +62,7 @@ public final class PublicSuffixListParser {
 
         String line;
         while ((line = r.readLine()) != null) {
-            if (line.isEmpty()) {
+            if (line.length()==0) {
                 continue;
             }
             if (line.startsWith("//")) {
@@ -108,7 +108,7 @@ public final class PublicSuffixListParser {
         List<String> exceptions = null;
         String line;
         while ((line = r.readLine()) != null) {
-            if (line.isEmpty()) {
+            if (line.length()==0) {
                 continue;
             }
             if (line.startsWith("//")) {

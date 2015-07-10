@@ -107,7 +107,7 @@ public class URIBuilder {
     }
 
     private List <NameValuePair> parseQuery(final String query, final Charset charset) {
-        if (query != null && !query.isEmpty()) {
+        if (query != null && query.length() > 0) {
             return URLEncodedUtils.parse(query, charset);
         }
         return null;

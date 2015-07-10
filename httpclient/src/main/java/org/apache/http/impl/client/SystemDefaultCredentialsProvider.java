@@ -51,15 +51,16 @@ import org.apache.http.util.Args;
 @ThreadSafe
 public class SystemDefaultCredentialsProvider implements CredentialsProvider {
 
+    public static final Locale LOCALE_ROOT = new Locale("","");
     private static final Map<String, String> SCHEME_MAP;
 
     static {
         SCHEME_MAP = new ConcurrentHashMap<String, String>();
-        SCHEME_MAP.put(AuthSchemes.BASIC.toUpperCase(Locale.ROOT), "Basic");
-        SCHEME_MAP.put(AuthSchemes.DIGEST.toUpperCase(Locale.ROOT), "Digest");
-        SCHEME_MAP.put(AuthSchemes.NTLM.toUpperCase(Locale.ROOT), "NTLM");
-        SCHEME_MAP.put(AuthSchemes.SPNEGO.toUpperCase(Locale.ROOT), "SPNEGO");
-        SCHEME_MAP.put(AuthSchemes.KERBEROS.toUpperCase(Locale.ROOT), "Kerberos");
+        SCHEME_MAP.put(AuthSchemes.BASIC.toUpperCase(LOCALE_ROOT), "Basic");
+        SCHEME_MAP.put(AuthSchemes.DIGEST.toUpperCase(LOCALE_ROOT), "Digest");
+        SCHEME_MAP.put(AuthSchemes.NTLM.toUpperCase(LOCALE_ROOT), "NTLM");
+        SCHEME_MAP.put(AuthSchemes.SPNEGO.toUpperCase(LOCALE_ROOT), "SPNEGO");
+        SCHEME_MAP.put(AuthSchemes.KERBEROS.toUpperCase(LOCALE_ROOT), "Kerberos");
     }
 
     private static String translateScheme(final String key) {

@@ -62,7 +62,7 @@ import org.apache.http.util.CharArrayBuffer;
  */
 @ThreadSafe
 public class RFC6265CookieSpec implements CookieSpec {
-
+    public static final Locale LOCALE_ROOT = new Locale("","");
     private final static char PARAM_DELIMITER  = ';';
     private final static char COMMA_CHAR       = ',';
     private final static char EQUAL_CHAR       = '=';
@@ -85,7 +85,7 @@ public class RFC6265CookieSpec implements CookieSpec {
         this.attribHandlers = handlers.clone();
         this.attribHandlerMap = new ConcurrentHashMap<String, CookieAttributeHandler>(handlers.length);
         for (CommonCookieAttributeHandler handler: handlers) {
-            this.attribHandlerMap.put(handler.getAttributeName().toLowerCase(Locale.ROOT), handler);
+            this.attribHandlerMap.put(handler.getAttributeName().toLowerCase(LOCALE_ROOT), handler);
         }
         this.tokenParser = TokenParser.INSTANCE;
     }
@@ -152,7 +152,7 @@ public class RFC6265CookieSpec implements CookieSpec {
         final Map<String, String> attribMap = new LinkedHashMap<String, String>();
         while (!cursor.atEnd()) {
             final String paramName = tokenParser.parseToken(buffer, cursor, TOKEN_DELIMS)
-                    .toLowerCase(Locale.ROOT);
+                    .toLowerCase(LOCALE_ROOT);
             String paramValue = null;
             if (!cursor.atEnd()) {
                 final int paramDelim = buffer.charAt(cursor.getPos());

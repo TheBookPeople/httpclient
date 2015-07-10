@@ -117,7 +117,7 @@ public abstract class RFC2617Scheme extends AuthSchemeBase implements Serializab
         final HeaderElement[] elements = parser.parseElements(buffer, cursor);
         this.params.clear();
         for (final HeaderElement element : elements) {
-            this.params.put(element.getName().toLowerCase(Locale.ROOT), element.getValue());
+            this.params.put(element.getName().toLowerCase(new Locale("","")), element.getValue());
         }
     }
 
@@ -142,7 +142,7 @@ public abstract class RFC2617Scheme extends AuthSchemeBase implements Serializab
         if (name == null) {
             return null;
         }
-        return this.params.get(name.toLowerCase(Locale.ROOT));
+        return this.params.get(name.toLowerCase(new Locale("","")));
     }
 
     /**

@@ -59,6 +59,7 @@ import org.apache.http.protocol.HttpContext;
 public class ResponseContentEncoding implements HttpResponseInterceptor {
 
     public static final String UNCOMPRESSED = "http.client.response.uncompressed";
+    public static final Locale LOCALE_ROOT = new Locale("","");
 
     private final static InputStreamFactory GZIP = new InputStreamFactory() {
 
@@ -134,7 +135,7 @@ public class ResponseContentEncoding implements HttpResponseInterceptor {
             if (ceheader != null) {
                 final HeaderElement[] codecs = ceheader.getElements();
                 for (final HeaderElement codec : codecs) {
-                    final String codecname = codec.getName().toLowerCase(Locale.ROOT);
+                    final String codecname = codec.getName().toLowerCase(LOCALE_ROOT);
                     final InputStreamFactory decoderFactory = decoderRegistry.lookup(codecname);
                     if (decoderFactory != null) {
                         response.setEntity(new DecompressingEntity(response.getEntity(), decoderFactory));

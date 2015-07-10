@@ -48,6 +48,8 @@ import org.apache.http.util.Args;
 @Immutable
 public class RFC2965DomainAttributeHandler implements CommonCookieAttributeHandler {
 
+    public static final Locale LOCALE_ROOT = new Locale("","");
+
     public RFC2965DomainAttributeHandler() {
         super();
     }
@@ -63,12 +65,12 @@ public class RFC2965DomainAttributeHandler implements CommonCookieAttributeHandl
             throw new MalformedCookieException(
                     "Missing value for domain attribute");
         }
-        if (domain.trim().isEmpty()) {
+        if (domain.trim().length() == 0) {
             throw new MalformedCookieException(
                     "Blank value for domain attribute");
         }
         String s = domain;
-        s = s.toLowerCase(Locale.ROOT);
+        s = s.toLowerCase(LOCALE_ROOT);
         if (!domain.startsWith(".")) {
             // Per RFC 2965 section 3.2.2
             // "... If an explicitly specified value does not start with
@@ -111,12 +113,12 @@ public class RFC2965DomainAttributeHandler implements CommonCookieAttributeHandl
             throws MalformedCookieException {
         Args.notNull(cookie, "Cookie");
         Args.notNull(origin, "Cookie origin");
-        final String host = origin.getHost().toLowerCase(Locale.ROOT);
+        final String host = origin.getHost().toLowerCase(LOCALE_ROOT);
         if (cookie.getDomain() == null) {
             throw new CookieRestrictionViolationException("Invalid cookie state: " +
                                                "domain not specified");
         }
-        final String cookieDomain = cookie.getDomain().toLowerCase(Locale.ROOT);
+        final String cookieDomain = cookie.getDomain().toLowerCase(LOCALE_ROOT);
 
         if (cookie instanceof ClientCookie
                 && ((ClientCookie) cookie).containsAttribute(ClientCookie.DOMAIN_ATTR)) {
@@ -172,7 +174,7 @@ public class RFC2965DomainAttributeHandler implements CommonCookieAttributeHandl
     public boolean match(final Cookie cookie, final CookieOrigin origin) {
         Args.notNull(cookie, "Cookie");
         Args.notNull(origin, "Cookie origin");
-        final String host = origin.getHost().toLowerCase(Locale.ROOT);
+        final String host = origin.getHost().toLowerCase(LOCALE_ROOT);
         final String cookieDomain = cookie.getDomain();
 
         // The effective host name MUST domain-match the Domain

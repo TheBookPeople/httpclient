@@ -85,7 +85,7 @@ public abstract class HttpRequestBase extends AbstractExecutionAwareRequest
         if (uriCopy != null) {
             uritext = uriCopy.toASCIIString();
         }
-        if (uritext == null || uritext.isEmpty()) {
+        if (uritext == null || uritext.length()==0) {
             uritext = "/";
         }
         return new BasicRequestLine(method, uritext, ver);

@@ -63,7 +63,7 @@ import org.apache.http.util.CharArrayBuffer;
 @Deprecated
 @Immutable
 public abstract class AbstractAuthenticationHandler implements AuthenticationHandler {
-
+    public static final Locale LOCALE_ROOT = new Locale("","");
     private final Log log = LogFactory.getLog(getClass());
 
     private static final List<String> DEFAULT_SCHEME_PRIORITY =
@@ -106,7 +106,7 @@ public abstract class AbstractAuthenticationHandler implements AuthenticationHan
             }
             final int endIndex = pos;
             final String s = buffer.substring(beginIndex, endIndex);
-            map.put(s.toLowerCase(Locale.ROOT), header);
+            map.put(s.toLowerCase(LOCALE_ROOT), header);
         }
         return map;
     }

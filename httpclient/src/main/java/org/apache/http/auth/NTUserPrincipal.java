@@ -44,6 +44,8 @@ public class NTUserPrincipal implements Principal, Serializable {
 
     private static final long serialVersionUID = -6870169797924406894L;
 
+    public static final Locale LOCALE_ROOT = new Locale("","");
+
     private final String username;
     private final String domain;
     private final String ntname;
@@ -55,11 +57,11 @@ public class NTUserPrincipal implements Principal, Serializable {
         Args.notNull(username, "User name");
         this.username = username;
         if (domain != null) {
-            this.domain = domain.toUpperCase(Locale.ROOT);
+            this.domain = domain.toUpperCase(LOCALE_ROOT);
         } else {
             this.domain = null;
         }
-        if (this.domain != null && !this.domain.isEmpty()) {
+        if (this.domain != null && this.domain.length() > 0) {
             final StringBuilder buffer = new StringBuilder();
             buffer.append(this.domain);
             buffer.append('\\');

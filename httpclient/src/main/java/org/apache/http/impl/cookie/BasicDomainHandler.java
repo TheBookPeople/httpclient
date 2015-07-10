@@ -47,6 +47,8 @@ import org.apache.http.util.TextUtils;
 @Immutable
 public class BasicDomainHandler implements CommonCookieAttributeHandler {
 
+    public static final Locale LOCALE_ROOT = new Locale("","");
+
     public BasicDomainHandler() {
         super();
     }
@@ -66,7 +68,7 @@ public class BasicDomainHandler implements CommonCookieAttributeHandler {
         if (domain.startsWith(".")) {
             domain = domain.substring(1);
         }
-        domain = domain.toLowerCase(Locale.ROOT);
+        domain = domain.toLowerCase(LOCALE_ROOT);
         cookie.setDomain(domain);
     }
 
@@ -121,7 +123,7 @@ public class BasicDomainHandler implements CommonCookieAttributeHandler {
         if (domain.startsWith(".")) {
             domain = domain.substring(1);
         }
-        domain = domain.toLowerCase(Locale.ROOT);
+        domain = domain.toLowerCase(LOCALE_ROOT);
         if (host.equals(domain)) {
             return true;
         }

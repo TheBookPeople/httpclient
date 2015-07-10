@@ -59,7 +59,7 @@ import org.apache.http.util.CharArrayBuffer;
 @Obsolete
 @ThreadSafe
 public class RFC2965Spec extends RFC2109Spec {
-
+    public static final Locale LOCALE_ROOT = new Locale("","");
     /**
      * Default constructor
      *
@@ -116,7 +116,7 @@ public class RFC2965Spec extends RFC2109Spec {
         for (final HeaderElement headerelement : elems) {
             final String name = headerelement.getName();
             final String value = headerelement.getValue();
-            if (name == null || name.isEmpty()) {
+            if (name == null || name.length()==0) {
                 throw new MalformedCookieException("Cookie name may not be empty");
             }
 
@@ -133,11 +133,11 @@ public class RFC2965Spec extends RFC2109Spec {
                     new HashMap<String, NameValuePair>(attribs.length);
             for (int j = attribs.length - 1; j >= 0; j--) {
                 final NameValuePair param = attribs[j];
-                attribmap.put(param.getName().toLowerCase(Locale.ROOT), param);
+                attribmap.put(param.getName().toLowerCase(LOCALE_ROOT), param);
             }
             for (final Map.Entry<String, NameValuePair> entry : attribmap.entrySet()) {
                 final NameValuePair attrib = entry.getValue();
-                final String s = attrib.getName().toLowerCase(Locale.ROOT);
+                final String s = attrib.getName().toLowerCase(LOCALE_ROOT);
 
                 cookie.setAttribute(s, attrib.getValue());
 
@@ -180,7 +180,7 @@ public class RFC2965Spec extends RFC2109Spec {
             if (s != null) {
                 buffer.append("; $Port");
                 buffer.append("=\"");
-                if (!s.trim().isEmpty()) {
+                if (s.trim().length() > 0) {
                     final int[] ports = cookie.getPorts();
                     if (ports != null) {
                         final int len = ports.length;

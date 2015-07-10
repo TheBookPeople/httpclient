@@ -68,6 +68,7 @@ public final class DefaultHostnameVerifier implements HostnameVerifier {
     final static int IP_ADDRESS_TYPE      = 7;
 
     private final Log log = LogFactory.getLog(getClass());
+    public static final Locale LOCALE_ROOT = new Locale("","");
 
     private final PublicSuffixMatcher publicSuffixMatcher;
 
@@ -147,10 +148,10 @@ public final class DefaultHostnameVerifier implements HostnameVerifier {
 
     static void matchDNSName(final String host, final List<String> subjectAlts,
                              final PublicSuffixMatcher publicSuffixMatcher) throws SSLException {
-        final String normalizedHost = host.toLowerCase(Locale.ROOT);
+        final String normalizedHost = host.toLowerCase(LOCALE_ROOT);
         for (int i = 0; i < subjectAlts.size(); i++) {
             final String subjectAlt = subjectAlts.get(i);
-            final String normalizedSubjectAlt = subjectAlt.toLowerCase(Locale.ROOT);
+            final String normalizedSubjectAlt = subjectAlt.toLowerCase(LOCALE_ROOT);
             if (matchIdentityStrict(normalizedHost, normalizedSubjectAlt, publicSuffixMatcher)) {
                 return;
             }
@@ -193,10 +194,10 @@ public final class DefaultHostnameVerifier implements HostnameVerifier {
         if (asteriskIdx != -1) {
             final String prefix = identity.substring(0, asteriskIdx);
             final String suffix = identity.substring(asteriskIdx + 1);
-            if (!prefix.isEmpty() && !host.startsWith(prefix)) {
+            if (prefix.length() > 0 && !host.startsWith(prefix)) {
                 return false;
             }
-            if (!suffix.isEmpty() && !host.endsWith(suffix)) {
+            if (suffix.length() > 0 && !host.endsWith(suffix)) {
                 return false;
             }
             // Additional sanity checks on content selected by wildcard can be done here

@@ -152,7 +152,7 @@ public class BrowserCompatSpec extends CookieSpecBase {
             final HeaderElement elem = parser.parseHeader(buffer, cursor);
             final String name = elem.getName();
             final String value = elem.getValue();
-            if (name == null || name.isEmpty()) {
+            if (name == null || name.length() == 0) {
                 throw new MalformedCookieException("Cookie name may not be empty");
             }
             final BasicClientCookie cookie = new BasicClientCookie(name, value);
@@ -163,7 +163,7 @@ public class BrowserCompatSpec extends CookieSpecBase {
             final NameValuePair[] attribs = elem.getParameters();
             for (int j = attribs.length - 1; j >= 0; j--) {
                 final NameValuePair attrib = attribs[j];
-                final String s = attrib.getName().toLowerCase(Locale.ROOT);
+                final String s = attrib.getName().toLowerCase(new Locale("",""));
                 cookie.setAttribute(s, attrib.getValue());
                 final CookieAttributeHandler handler = findAttribHandler(s);
                 if (handler != null) {

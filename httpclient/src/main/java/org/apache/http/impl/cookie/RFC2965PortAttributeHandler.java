@@ -110,7 +110,7 @@ public class RFC2965PortAttributeHandler implements CommonCookieAttributeHandler
         Args.notNull(cookie, "Cookie");
         if (cookie instanceof SetCookie2) {
             final SetCookie2 cookie2 = (SetCookie2) cookie;
-            if (portValue != null && !portValue.trim().isEmpty()) {
+            if (portValue != null && portValue.trim().length() > 0) {
                 final int[] ports = parsePortAttribute(portValue);
                 cookie2.setPorts(ports);
             }
